@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "190491426101",
+    "firebase_url": "https://onlineprakasam-34b2f.firebaseio.com",
+    "project_id": "onlineprakasam-34b2f",
+    "storage_bucket": "onlineprakasam-34b2f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190491426101:android:482fa31514e3b37c0e207c",
+        "android_client_info": {
+          "package_name": "com.news.onlineprakasamapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "190491426101-emuofcq6dfc0jplpn8sb9pjgm8cmrii9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS7N5LRa10N2hOYT-wkUSCFLD5m05qVYo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190491426101-emuofcq6dfc0jplpn8sb9pjgm8cmrii9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

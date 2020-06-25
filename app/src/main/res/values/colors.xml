@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryDark">#01678D</color>
+    <color name="colorPrimary">#01678D</color>
+    <color name="background">#dddddd</color>
+    <color name="colorAccent">#125688</color>
+    <color name="black">#000000</color>
+
+    <color name="blue">#ff0095ff</color>
+
+    <color name="common_google_signin_btn_text_dark_default">@android:color/white</color>
+    <color name="common_google_signin_btn_text_dark_disabled">#1f000000</color>
+    <color name="common_google_signin_btn_text_dark_focused">@android:color/black</color>
+    <color name="common_google_signin_btn_text_dark_pressed">@android:color/white</color>
+    <color name="common_google_signin_btn_text_light_default">#90000000</color>
+    <color name="common_google_signin_btn_text_light_disabled">#1f000000</color>
+    <color name="common_google_signin_btn_text_light_focused">#90000000</color>
+    <color name="common_google_signin_btn_text_light_pressed">#de000000</color>
+    <color name="default_bg">#fff3f3f3</color>
+
+    <color name="design_default_color_primary">#ff3f51b5</color>
+    <color name="design_default_color_primary_dark">#ff303f9f</color>
+
+    <color name="exo_edit_mode_background_color">#fff4f3f0</color>
+
+    <color name="green">#ff029a43</color>
+
+
+    <color name="quantum_bluegrey800">#ff37474f</color>
+    <color name="quantum_grey">@color/quantum_grey500</color>
+    <color name="quantum_grey500">#ff9e9e9e</color>
+    <color name="red">#ffe42828</color>
+
+    <color name="white">#ffffffff</color>
+
+
+</resources>
+

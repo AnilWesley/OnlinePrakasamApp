@@ -1,0 +1,245 @@
+package com.news.onlineprakasamapp.activities;
+
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.dynamiclinks.DynamicLink;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.ShortDynamicLink;
+import com.news.onlineprakasamapp.R;
+import com.news.onlineprakasamapp.constants.ConstantValues;
+import com.news.onlineprakasamapp.constants.MyAppPrefsManager;
+import com.news.onlineprakasamapp.databinding.ActivitySingleNewsBinding;
+import com.news.onlineprakasamapp.modals.SingleDetails;
+import com.news.onlineprakasamapp.retrofit.ApiInterface;
+import com.news.onlineprakasamapp.retrofit.RetrofitClientInstance;
+
+import java.util.List;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+
+public class SingleStateandNationalActivity extends AppCompatActivity {
+
+    String TAG = "Articles";
+    private ProgressDialog pDialog;
+
+    private List<SingleDetails.ResponseBean> infoList;
+
+
+    ActivitySingleNewsBinding binding;
+    private String news_id;
+    private String imagePath = "http://apnewsnviews.com/onlineprakasam/";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = DataBindingUtil.setContentView(SingleStateandNationalActivity.this, R.layout.activity_single_news);
+
+        pDialog = new ProgressDialog(this);
+
+        setSupportActionBar(binding.toolbar);
+
+        binding.toolbar.inflateMenu(R.menu.share);
+
+        Intent i = getIntent();
+        news_id = i.getStringExtra("news_id");
+
+
+        binding.actionImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
+        getNews();
+        binding.mSwipeRefreshLayout.setOnRefreshListener(() -> {
+
+            binding.mSwipeRefreshLayout.post(() -> {
+                        //mSwipeLayout = true;
+
+                        binding.mSwipeRefreshLayout.setRefreshing(true);
+                        getNews();
+                    }
+            );
+
+        });
+        binding.mSwipeRefreshLayout.setColorSchemeResources(R.color.green, R.color.red, R.color.blue);
+
+
+    }
+
+
+    public void getNews() {
+
+
+        String url = "http://apnewsnviews.com/onlineprakasam/api/view_state_national/" + news_id;
+        ApiInterface service = RetrofitClientInstance.getRetrofitInstance().create(ApiInterface.class);
+        Call<SingleDetails> call = service.processSingleStateandNational(url);
+        call.enqueue(new Callback<SingleDetails>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(@NonNull Call<SingleDetails> call, @NonNull retrofit2.Response<SingleDetails> response) {
+
+
+                // Check if the Response is successful
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "" + response.toString());
+                    assert response.body() != null;
+                    SingleDetails articlesData = response.body();
+
+
+                    if (articlesData.isStatus()) {
+                        infoList = response.body().getResponse();
+                        if (infoList != null && infoList.size() > 0) {
+                            for (int j = 0; j < infoList.size(); j++) {
+                                Log.d(TAG, "" + infoList.size());
+
+
+                                binding.textDate.setText("Published on : " + ConstantValues.getFormattedDate(MyAppPrefsManager.DD_MMM_YYYY_DATE_FORMAT, infoList.get(0).getCreated_on()));
+                                binding.textTitle1.setText(infoList.get(0).getTitle());
+
+
+                                //Font must be placed in assets/fonts folder
+                                String text = "<html><style type='text/css'>@font-face { font-family: Mandali-Regular; src: url('fonts/Mandali-Regular.ttf'); } body p {font-family: Mandali-Regular;}</style>"
+                                        + "<body >" + "<p align=\"justify\" style=\"font-size: 24px; font-family: Mandali-Regular;\">" + infoList.get(0).getDescription() + "</p> " + "</body></html>";
+
+                                binding.textDesc.loadDataWithBaseURL("file:///android_asset/", text, "text/html", "utf-8", null);
+
+                                Glide.with(SingleStateandNationalActivity.this)
+                                        .load(imagePath + infoList.get(0).getImage())
+                                        .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
+                                        .into(new CustomTarget<Drawable>() {
+                                            @Override
+                                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                                binding.textImage.setImageDrawable(resource);
+                                                binding.progressBar.setVisibility(View.GONE);
+                                            }
+
+                                            @Override
+                                            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                                                binding.progressBar.setVisibility(View.GONE);
+                                            }
+
+                                        });
+
+
+                                binding.mSwipeRefreshLayout.setRefreshing(false);
+
+                                pDialog.dismiss();
+                            }
+                            //get values
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<SingleDetails> call, @NonNull Throwable t) {
+                pDialog.dismiss();
+                Log.d("ResponseF", "" + t);
+            }
+        });
+
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.share, menu);
+
+
+        // return true so that the menu pop up is opened
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.share) {
+            // do your code
+
+            try {
+                // shorten the link
+                Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                        .setLink(Uri.parse("https://apnewsnviews.com/" + infoList.get(0).getId() + "stateandnational"))// manually
+                        .setDomainUriPrefix("https://onlineprakasam.page.link")
+                        .setAndroidParameters(new DynamicLink.AndroidParameters.Builder()
+                                .build())
+                        .setSocialMetaTagParameters(new DynamicLink.SocialMetaTagParameters.Builder()
+                                .setTitle(infoList.get(0).getTitle())
+                                .setImageUrl(Uri.parse(imagePath + infoList.get(0).getImage()))
+
+                                .setDescription(getResources().getString(R.string.access__news))
+
+                                .build())
+                        .buildShortDynamicLink(ShortDynamicLink.Suffix.SHORT)
+                        .addOnCompleteListener(this, task -> {
+                            if (task.isSuccessful()) {
+                                // Short link created
+                                Uri shortLink = Objects.requireNonNull(task.getResult()).getShortLink();
+                                Uri flowchartLink = task.getResult().getPreviewLink();
+                                Log.e("main ", "substring1 " + shortLink);
+                                Log.e("main ", "substring1 " + flowchartLink);
+
+
+                                Intent intent = new Intent();
+                                intent.setAction(Intent.ACTION_SEND);
+
+                                assert shortLink != null;
+                                intent.putExtra(Intent.EXTRA_TEXT, shortLink.toString());
+                                intent.putExtra("title", "stateandnational");
+                                intent.setType("text/plain");
+                                startActivity(intent);
+
+
+                            } else {
+                                // Error
+                                // ...
+                                Log.e("main", " error " + task.getException());
+
+                            }
+                        });
+
+                Log.e("main ", "short link " + shortLinkTask);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+
+            return true;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+}

@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">OnlinePrakasam</string>
+    <string name="latest_news">జిల్లా తాజా</string>
+    <string name="state">రాష్ట్ర / జాతీయ</string>
+    <string name="topStories">టాప్ స్టోరీస్</string>
+    <string name="politics">ప్రకాశం పాలిటిక్స్</string>
+    <string name="investigation">ఇన్వెస్టిగేషన్ /క్రైమ్</string>
+    <string name="editorial">ఎడిటోరియల్</string>
+    <string name="about_us">About Us</string>
+    <string name="terms_and_service">Terms and Service</string>
+    <string name="share">Share</string>
+    <string name="home">Home</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="no_data_found">No Data Found</string>
+    <string name="news">News</string>
+
+
+    <string name="fcm_token" translatable="false">FCM Token: %s</string>
+
+    <string name="access__news">Hi, I found this info on Online Praksam App. Hope it is helpful for you %s</string>
+    <string name="refer_app">Refer App</string>
+    <string name="rate_us">Rate Us</string>
+</resources>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.news.onlineprakasamapp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
+        android:name=".app.AppController"
+        android:allowBackup="true"
+        android:fullBackupContent="true"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/logo"
+        android:supportsRtl="true"
+        android:theme="@style/MyMaterialTheme"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
+        <activity
+            android:name=".activities.SplashScreenActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.HomeActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".activities.SingleNewsActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".activities.SingleTopStoriesActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+
+        <activity
+            android:name=".activities.SingleStateandNationalActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".activities.SinglePoliticsActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+
+        <activity
+            android:name=".activities.SingleEditorialActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".activities.SingleInvestigationActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+
+        <activity
+            android:name=".activities.SplashScreenActivity1"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="apnewsnviews.com"
+                    android:scheme="https" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="onlineprakasam.page.link"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <service
+            android:name=".firebase.MyFirebaseMessagingService"
+            android:exported="true"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+    </application>
+
+</manifest>

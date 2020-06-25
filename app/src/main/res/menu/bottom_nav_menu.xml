@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/navigation_latest_news"
+        android:icon="@drawable/latestnews"
+        android:title="@string/latest_news" />
+
+    <item
+        android:id="@+id/navigation_state"
+        android:icon="@drawable/stateandnational"
+        android:title="@string/state" />
+
+    <item
+        android:id="@+id/navigation_editorial"
+        android:icon="@drawable/editorial"
+        android:title="@string/editorial" />
+
+    <item
+        android:id="@+id/navigation_politics"
+        android:icon="@drawable/praksampolitics"
+        android:title="@string/politics" />
+
+
+
+</menu>
