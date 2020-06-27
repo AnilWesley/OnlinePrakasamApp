@@ -16,7 +16,7 @@
         android:layout_height="125dp"
         android:scaleType="fitCenter"
         android:layout_centerInParent="true"
-        app:srcCompat="@drawable/mainlogo"
+        app:srcCompat="@drawable/icon1"
         android:contentDescription="@string/app_name" />
 
     <ProgressBar

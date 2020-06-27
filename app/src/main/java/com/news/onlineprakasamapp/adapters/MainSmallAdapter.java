@@ -38,12 +38,9 @@ public class MainSmallAdapter extends RecyclerView.Adapter<MainSmallAdapter.MyVi
     Context context;
 
 
-
-
     public MainSmallAdapter(Context context1, List<FullListDetails.ResponseBean> newsModalList1) {
         this.context = context1;
         this.newsModalList = newsModalList1;
-
 
 
     }
@@ -109,11 +106,7 @@ public class MainSmallAdapter extends RecyclerView.Adapter<MainSmallAdapter.MyVi
                 });
 
 
-
-
     }
-
-
 
 
     @Override

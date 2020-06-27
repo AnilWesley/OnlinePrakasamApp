@@ -23,4 +23,13 @@
     <string name="access__news">Hi, I found this info on Online Praksam App. Hope it is helpful for you %s</string>
     <string name="refer_app">Refer App</string>
     <string name="rate_us">Rate Us</string>
+
+
+    <!--<string name="admob_app_id">ca-app-pub-6293458907707753~6748095462</string>
+    <string name="admob_banner_id">ca-app-pub-6293458907707753/5051870412</string>
+    <string name="admob_native_id">ca-app-pub-6293458907707753/1033089577</string>-->
+
+    <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="admob_banner_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="admob_native_id">ca-app-pub-3940256099942544/8135179316</string>
 </resources>
