@@ -1,12 +1,11 @@
 package com.news.onlineprakasamapp.activities;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,7 +42,6 @@ import retrofit2.Callback;
 public class SingleTopStoriesActivity extends AppCompatActivity {
 
     String TAG = "Articles";
-    private ProgressDialog pDialog;
 
     private List<SingleNewsDetail.ResponseBean> infoList;
 
@@ -57,7 +55,6 @@ public class SingleTopStoriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(SingleTopStoriesActivity.this, R.layout.activity_single_news);
 
-        pDialog = new ProgressDialog(this);
 
         setSupportActionBar(binding.toolbar);
 
@@ -107,7 +104,7 @@ public class SingleTopStoriesActivity extends AppCompatActivity {
 
                 // Check if the Response is successful
                 if (response.isSuccessful()) {
-                    Log.d(TAG, "" + response.toString());
+
                     assert response.body() != null;
                     SingleNewsDetail articlesData = response.body();
 
@@ -116,7 +113,6 @@ public class SingleTopStoriesActivity extends AppCompatActivity {
                         infoList = response.body().getResponse();
                         if (infoList != null && infoList.size() > 0) {
                             for (int j = 0; j < infoList.size(); j++) {
-                                Log.d(TAG, "" + infoList.size());
 
 
                                 binding.textDate.setText("Published on : " + ConstantValues.getFormattedDate(MyAppPrefsManager.DD_MMM_YYYY_DATE_FORMAT, infoList.get(0).getCreated_on()));
@@ -151,7 +147,7 @@ public class SingleTopStoriesActivity extends AppCompatActivity {
 
                                 binding.mSwipeRefreshLayout.setRefreshing(false);
 
-                                pDialog.dismiss();
+
                             }
                             //get values
 
@@ -165,8 +161,7 @@ public class SingleTopStoriesActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<SingleNewsDetail> call, @NonNull Throwable t) {
-                pDialog.dismiss();
-                Log.d("ResponseF", "" + t);
+
             }
         });
 
@@ -208,8 +203,8 @@ public class SingleTopStoriesActivity extends AppCompatActivity {
                                 // Short link created
                                 Uri shortLink = Objects.requireNonNull(task.getResult()).getShortLink();
                                 Uri flowchartLink = task.getResult().getPreviewLink();
-                                Log.e("main ", "substring1 " + shortLink);
-                                Log.e("main ", "substring1 " + flowchartLink);
+
+
 
 
                                 Intent intent = new Intent();
@@ -222,15 +217,9 @@ public class SingleTopStoriesActivity extends AppCompatActivity {
                                 startActivity(intent);
 
 
-                            } else {
-                                // Error
-                                // ...
-                                Log.e("main", " error " + task.getException());
-
                             }
                         });
 
-                Log.e("main ", "short link " + shortLinkTask);
 
             } catch (Exception e) {
                 e.printStackTrace();

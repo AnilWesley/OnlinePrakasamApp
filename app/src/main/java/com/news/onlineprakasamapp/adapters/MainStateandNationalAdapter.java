@@ -84,7 +84,6 @@ public class MainStateandNationalAdapter extends RecyclerView.Adapter<MainStatea
         String niceDateStr = String.valueOf(DateUtils.getRelativeTimeSpanString(date.getTime(), Calendar.getInstance().getTimeInMillis(), DateUtils.MINUTE_IN_MILLIS));
 
         ((MyViewHolder) holder).tvDate.setText(niceDateStr);
-        //((MyViewHolder) holder).tvDate.setText(ConstantValues.getFormattedDate(MyAppPrefsManager.DD_MMM_YYYY_DATE_FORMAT, newsModal.getCreated_on()));
 
 
         Glide.with(context)

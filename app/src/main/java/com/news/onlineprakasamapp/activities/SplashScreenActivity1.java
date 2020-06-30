@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
@@ -15,13 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.news.onlineprakasamapp.R;
-import com.news.onlineprakasamapp.constants.MyAppPrefsManager;
 
 public class SplashScreenActivity1 extends AppCompatActivity {
 
     ProgressBar progressBar;
-    final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
-    MyAppPrefsManager myAppPrefsManager;
     private String TAG = "SPLASHACTIVITY1";
 
     @Override
@@ -31,11 +27,7 @@ public class SplashScreenActivity1 extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash_screen);
-//        Objects.requireNonNull(getSupportActionBar()).hide();
         progressBar = findViewById(R.id.progressBar);
-        myAppPrefsManager = new MyAppPrefsManager(this);
-        //progressBar.setVisibility(View.VISIBLE);
-
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -59,10 +51,9 @@ public class SplashScreenActivity1 extends AppCompatActivity {
                         Uri deepLink = null;
                         if (pendingDynamicLinkData != null) {
                             deepLink = pendingDynamicLinkData.getLink();
-                            Log.d(TAG, "shareLinks: " + deepLink);
+
                             assert deepLink != null;
                             String referlink = deepLink.toString().replace("https://apnewsnviews.com/", "");
-                            Log.e(TAG, " substring3 " + referlink); //id=174
 
 
                             if (referlink.contains("editorial")) {
@@ -155,7 +146,7 @@ public class SplashScreenActivity1 extends AppCompatActivity {
                     .addOnFailureListener(SplashScreenActivity1.this, new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.e(TAG, "getDynamicLink:onFailure", e);
+
                         }
                     });
 

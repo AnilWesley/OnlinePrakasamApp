@@ -1,10 +1,8 @@
 package com.news.onlineprakasamapp.fragments;
 
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,23 +32,13 @@ import retrofit2.Response;
 public class EditorialFragment extends Fragment {
 
 
-
     public EditorialFragment() {
         // Required empty public constructor
     }
 
-
     private MainEditorialAdapter mAdapter;
-
     private List<FullListDetails.ResponseBean> infoNews;
     private LinearLayoutManager mLayoutManager;
-
-
-    private String TAG = "News";
-
-    private ProgressDialog pDialog;
-
-
     private ShimmerFrameLayout shimmer;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView articlesRecycle;
@@ -75,12 +63,8 @@ public class EditorialFragment extends Fragment {
         emptyView = view.findViewById(R.id.emptyView);
 
 
-
-
-
         shimmer.startShimmer();
 
-        pDialog = new ProgressDialog(getActivity());
 
         getNews();
 
@@ -110,10 +94,6 @@ public class EditorialFragment extends Fragment {
     }
 
 
-
-
-
-
     private void getNews() {
 
 
@@ -125,7 +105,7 @@ public class EditorialFragment extends Fragment {
 
                 // Check if the Response is successful
                 if (response.isSuccessful()) {
-                    Log.d(TAG, "" + response.toString());
+
                     assert response.body() != null;
                     FullListDetails fullListDetails = response.body();
 
@@ -180,8 +160,8 @@ public class EditorialFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<FullListDetails> call, @NonNull Throwable t) {
-                pDialog.dismiss();
-                Log.d("ResponseF", "" + t);
+
+
             }
         });
 

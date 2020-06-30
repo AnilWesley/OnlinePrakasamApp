@@ -9,7 +9,6 @@
     <string name="about_us">About Us</string>
     <string name="terms_and_service">Terms and Service</string>
     <string name="share">Share</string>
-    <string name="home">Home</string>
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -25,7 +24,7 @@
     <string name="rate_us">Rate Us</string>
 
 
-    <!--<string name="admob_app_id">ca-app-pub-6293458907707753~6748095462</string>
+<!--    <string name="admob_app_id">ca-app-pub-6293458907707753~6748095462</string>
     <string name="admob_banner_id">ca-app-pub-6293458907707753/5051870412</string>
     <string name="admob_native_id">ca-app-pub-6293458907707753/1033089577</string>-->
 

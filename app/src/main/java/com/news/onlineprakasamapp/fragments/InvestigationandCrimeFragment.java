@@ -1,10 +1,8 @@
 package com.news.onlineprakasamapp.fragments;
 
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,11 +45,6 @@ public class InvestigationandCrimeFragment extends Fragment {
     private LinearLayoutManager mLayoutManager;
 
 
-    private String TAG = "News";
-
-    private ProgressDialog pDialog;
-
-
     private ShimmerFrameLayout shimmer;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView articlesRecycle;
@@ -79,7 +72,6 @@ public class InvestigationandCrimeFragment extends Fragment {
 
         shimmer.startShimmer();
 
-        pDialog = new ProgressDialog(getActivity());
 
         getNews();
 
@@ -123,7 +115,7 @@ public class InvestigationandCrimeFragment extends Fragment {
 
                 // Check if the Response is successful
                 if (response.isSuccessful()) {
-                    Log.d(TAG, "" + response.toString());
+
                     assert response.body() != null;
                     FullListDetails fullListDetails = response.body();
 
@@ -178,8 +170,8 @@ public class InvestigationandCrimeFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<FullListDetails> call, @NonNull Throwable t) {
-                pDialog.dismiss();
-                Log.d("ResponseF", "" + t);
+
+
             }
         });
 

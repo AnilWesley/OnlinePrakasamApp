@@ -1,12 +1,10 @@
 package com.news.onlineprakasamapp.activities;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,7 +41,7 @@ import retrofit2.Callback;
 public class SingleNewsActivity extends AppCompatActivity {
 
     String TAG = "Articles";
-    private ProgressDialog pDialog;
+
 
     private List<SingleNewsDetail.ResponseBean> infoList;
 
@@ -51,14 +49,13 @@ public class SingleNewsActivity extends AppCompatActivity {
     ActivitySingleNewsBinding binding;
     private String news_id;
 
-    private String imagePath="http://apnewsnviews.com/onlineprakasam/storage/articles/";
+    private String imagePath = "http://apnewsnviews.com/onlineprakasam/storage/articles/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(SingleNewsActivity.this, R.layout.activity_single_news);
 
-        pDialog = new ProgressDialog(this);
 
         setSupportActionBar(binding.toolbar);
 
@@ -66,8 +63,6 @@ public class SingleNewsActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         news_id = i.getStringExtra("news_id");
-
-
 
 
         binding.actionImage.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +94,7 @@ public class SingleNewsActivity extends AppCompatActivity {
     public void getNews() {
 
 
-        String url= "http://apnewsnviews.com/onlineprakasam/api/view_latest_news/"+news_id;
+        String url = "http://apnewsnviews.com/onlineprakasam/api/view_latest_news/" + news_id;
         ApiInterface service = RetrofitClientInstance.getRetrofitInstance().create(ApiInterface.class);
         Call<SingleNewsDetail> call = service.processSingleNews(url);
         call.enqueue(new Callback<SingleNewsDetail>() {
@@ -110,7 +105,7 @@ public class SingleNewsActivity extends AppCompatActivity {
 
                 // Check if the Response is successful
                 if (response.isSuccessful()) {
-                    Log.d(TAG, "" + response.toString());
+
                     assert response.body() != null;
                     SingleNewsDetail articlesData = response.body();
 
@@ -119,7 +114,6 @@ public class SingleNewsActivity extends AppCompatActivity {
                         infoList = response.body().getResponse();
                         if (infoList != null && infoList.size() > 0) {
                             for (int j = 0; j < infoList.size(); j++) {
-                                Log.d(TAG, "" + infoList.size());
 
 
                                 binding.textDate.setText("Published on : " + ConstantValues.getFormattedDate(MyAppPrefsManager.DD_MMM_YYYY_DATE_FORMAT, infoList.get(0).getCreated_on()));
@@ -134,7 +128,7 @@ public class SingleNewsActivity extends AppCompatActivity {
 
 
                                 Glide.with(SingleNewsActivity.this)
-                                        .load(imagePath+infoList.get(0).getImage_path())
+                                        .load(imagePath + infoList.get(0).getImage_path())
                                         .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
                                         .into(new CustomTarget<Drawable>() {
                                             @Override
@@ -152,11 +146,9 @@ public class SingleNewsActivity extends AppCompatActivity {
                                         });
 
 
-
-
                                 binding.mSwipeRefreshLayout.setRefreshing(false);
 
-                                pDialog.dismiss();
+
                             }
                             //get values
 
@@ -170,8 +162,8 @@ public class SingleNewsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<SingleNewsDetail> call, @NonNull Throwable t) {
-                pDialog.dismiss();
-                Log.d("ResponseF", "" + t);
+
+
             }
         });
 
@@ -214,8 +206,6 @@ public class SingleNewsActivity extends AppCompatActivity {
                                 // Short link created
                                 Uri shortLink = Objects.requireNonNull(task.getResult()).getShortLink();
                                 Uri flowchartLink = task.getResult().getPreviewLink();
-                                Log.e("main ", "substring1 " + shortLink);
-                                Log.e("main ", "substring1 " + flowchartLink);
 
 
                                 Intent intent = new Intent();
@@ -228,15 +218,9 @@ public class SingleNewsActivity extends AppCompatActivity {
                                 startActivity(intent);
 
 
-                            } else {
-                                // Error
-                                // ...
-                                Log.e("main", " error " + task.getException());
-
                             }
                         });
 
-                Log.e("main ", "short link " + shortLinkTask);
 
             } catch (Exception e) {
                 e.printStackTrace();

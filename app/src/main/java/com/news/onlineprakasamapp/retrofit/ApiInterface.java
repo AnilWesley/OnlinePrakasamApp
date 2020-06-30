@@ -1,7 +1,6 @@
 package com.news.onlineprakasamapp.retrofit;
 
 
-import com.news.onlineprakasamapp.modals.Banners;
 import com.news.onlineprakasamapp.modals.FullListDetails;
 import com.news.onlineprakasamapp.modals.PrakasamPolitics;
 import com.news.onlineprakasamapp.modals.SatireCorner;
@@ -17,10 +16,6 @@ import retrofit2.http.Url;
 
 public interface ApiInterface {
 
-
-        @Headers("Content-Type: application/json")
-        @GET("banner_list")
-        Call<Banners> processBanners();
 
 
         @Headers("Content-Type: application/json")

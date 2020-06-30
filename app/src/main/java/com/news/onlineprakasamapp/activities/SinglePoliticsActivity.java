@@ -1,12 +1,10 @@
 package com.news.onlineprakasamapp.activities;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,7 +41,7 @@ import retrofit2.Callback;
 public class SinglePoliticsActivity extends AppCompatActivity {
 
     String TAG = "Articles";
-    private ProgressDialog pDialog;
+
 
     private List<SingleDetails.ResponseBean> infoList;
 
@@ -57,7 +55,6 @@ public class SinglePoliticsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(SinglePoliticsActivity.this, R.layout.activity_single_news);
 
-        pDialog = new ProgressDialog(this);
 
         setSupportActionBar(binding.toolbar);
 
@@ -106,7 +103,7 @@ public class SinglePoliticsActivity extends AppCompatActivity {
 
                 // Check if the Response is successful
                 if (response.isSuccessful()) {
-                    Log.d(TAG, "" + response.toString());
+
                     assert response.body() != null;
                     SingleDetails articlesData = response.body();
 
@@ -115,7 +112,6 @@ public class SinglePoliticsActivity extends AppCompatActivity {
                         infoList = response.body().getResponse();
                         if (infoList != null && infoList.size() > 0) {
                             for (int j = 0; j < infoList.size(); j++) {
-                                Log.d(TAG, "" + infoList.size());
 
 
                                 binding.textDate.setText("Published on : " + ConstantValues.getFormattedDate(MyAppPrefsManager.DD_MMM_YYYY_DATE_FORMAT, infoList.get(0).getCreated_on()));
@@ -149,7 +145,7 @@ public class SinglePoliticsActivity extends AppCompatActivity {
 
                                 binding.mSwipeRefreshLayout.setRefreshing(false);
 
-                                pDialog.dismiss();
+
                             }
                             //get values
 
@@ -163,8 +159,7 @@ public class SinglePoliticsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<SingleDetails> call, @NonNull Throwable t) {
-                pDialog.dismiss();
-                Log.d("ResponseF", "" + t);
+
             }
         });
 
@@ -206,8 +201,6 @@ public class SinglePoliticsActivity extends AppCompatActivity {
                                 // Short link created
                                 Uri shortLink = Objects.requireNonNull(task.getResult()).getShortLink();
                                 Uri flowchartLink = task.getResult().getPreviewLink();
-                                Log.e("main ", "substring1 " + shortLink);
-                                Log.e("main ", "substring1 " + flowchartLink);
 
 
                                 Intent intent = new Intent();
@@ -220,15 +213,9 @@ public class SinglePoliticsActivity extends AppCompatActivity {
                                 startActivity(intent);
 
 
-                            } else {
-                                // Error
-                                // ...
-                                Log.e("main", " error " + task.getException());
-
                             }
                         });
 
-                Log.e("main ", "short link " + shortLinkTask);
 
             } catch (Exception e) {
                 e.printStackTrace();

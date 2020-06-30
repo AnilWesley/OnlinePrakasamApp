@@ -1,10 +1,8 @@
 package com.news.onlineprakasamapp.fragments;
 
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,16 +38,11 @@ public class TopStoriesFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     private MainSmallAdapter mAdapter;
 
     private List<FullListDetails.ResponseBean> infoNews;
     private LinearLayoutManager mLayoutManager;
 
-
-    private String TAG = "News";
-
-    private ProgressDialog pDialog;
 
 
     private ShimmerFrameLayout shimmer;
@@ -81,7 +74,6 @@ public class TopStoriesFragment extends Fragment {
 
         shimmer.startShimmer();
 
-        pDialog = new ProgressDialog(getActivity());
 
         getNews();
 
@@ -125,7 +117,6 @@ public class TopStoriesFragment extends Fragment {
 
                 // Check if the Response is successful
                 if (response.isSuccessful()) {
-                    Log.d(TAG, "" + response.toString());
                     assert response.body() != null;
                     FullListDetails fullListDetails = response.body();
 
@@ -180,8 +171,6 @@ public class TopStoriesFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<FullListDetails> call, @NonNull Throwable t) {
-                pDialog.dismiss();
-                Log.d("ResponseF", "" + t);
             }
         });
 

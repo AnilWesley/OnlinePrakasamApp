@@ -1,37 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="?android:selectableItemBackground"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-
+    android:orientation="vertical">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <View
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_margin="10dp"
+            android:layout_gravity="center"
 
-            android:background="@color/background"
-            android:layout_gravity="center"/>
+            android:layout_margin="10dp"
+            android:background="@color/background" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical">
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
+                android:layout_gravity="start"
                 android:layout_margin="10dp"
-                android:background="@color/background"
-                android:layout_gravity="start"/>
+                android:background="@color/background" />
+
             <View
                 android:layout_width="50dp"
                 android:layout_height="10dp"
@@ -41,6 +43,7 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -51,24 +54,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <View
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_margin="10dp"
+            android:layout_gravity="center"
 
-            android:background="@color/background"
-            android:layout_gravity="center"/>
+            android:layout_margin="10dp"
+            android:background="@color/background" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical">
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
+                android:layout_gravity="start"
                 android:layout_margin="10dp"
-                android:background="@color/background"
-                android:layout_gravity="start"/>
+                android:background="@color/background" />
+
             <View
                 android:layout_width="50dp"
                 android:layout_height="10dp"
@@ -78,6 +85,7 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -88,24 +96,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <View
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_margin="10dp"
+            android:layout_gravity="center"
 
-            android:background="@color/background"
-            android:layout_gravity="center"/>
+            android:layout_margin="10dp"
+            android:background="@color/background" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical">
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
+                android:layout_gravity="start"
                 android:layout_margin="10dp"
-                android:background="@color/background"
-                android:layout_gravity="start"/>
+                android:background="@color/background" />
+
             <View
                 android:layout_width="50dp"
                 android:layout_height="10dp"
@@ -115,6 +127,7 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -125,24 +138,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <View
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_margin="10dp"
+            android:layout_gravity="center"
 
-            android:background="@color/background"
-            android:layout_gravity="center"/>
+            android:layout_margin="10dp"
+            android:background="@color/background" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical">
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
+                android:layout_gravity="start"
                 android:layout_margin="10dp"
-                android:background="@color/background"
-                android:layout_gravity="start"/>
+                android:background="@color/background" />
+
             <View
                 android:layout_width="50dp"
                 android:layout_height="10dp"
@@ -152,6 +169,7 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -162,24 +180,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <View
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_margin="10dp"
+            android:layout_gravity="center"
 
-            android:background="@color/background"
-            android:layout_gravity="center"/>
+            android:layout_margin="10dp"
+            android:background="@color/background" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical">
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
+                android:layout_gravity="start"
                 android:layout_margin="10dp"
-                android:background="@color/background"
-                android:layout_gravity="start"/>
+                android:background="@color/background" />
+
             <View
                 android:layout_width="50dp"
                 android:layout_height="10dp"
@@ -189,6 +211,7 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -199,24 +222,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <View
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_margin="10dp"
+            android:layout_gravity="center"
 
-            android:background="@color/background"
-            android:layout_gravity="center"/>
+            android:layout_margin="10dp"
+            android:background="@color/background" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical">
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
+                android:layout_gravity="start"
                 android:layout_margin="10dp"
-                android:background="@color/background"
-                android:layout_gravity="start"/>
+                android:background="@color/background" />
+
             <View
                 android:layout_width="50dp"
                 android:layout_height="10dp"
@@ -226,6 +253,7 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

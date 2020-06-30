@@ -1,10 +1,8 @@
 package com.news.onlineprakasamapp.fragments;
 
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.news.onlineprakasamapp.R;
 import com.news.onlineprakasamapp.activities.SingleStateandNationalActivity;
 import com.news.onlineprakasamapp.adapters.MainStateandNationalAdapter;
@@ -34,8 +37,6 @@ import retrofit2.Response;
 public class StateandNationalFragment extends Fragment {
 
 
-
-
     public StateandNationalFragment() {
         // Required empty public constructor
     }
@@ -47,16 +48,10 @@ public class StateandNationalFragment extends Fragment {
     private LinearLayoutManager mLayoutManager;
 
 
-    private String TAG = "News";
-
-    private ProgressDialog pDialog;
-
-
     private ShimmerFrameLayout shimmer;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView articlesRecycle;
     private TextView emptyView;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,17 +64,26 @@ public class StateandNationalFragment extends Fragment {
 
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_state, container, false);
+        MobileAds.initialize(getActivity(), getString(R.string.admob_app_id));
+
         shimmer = view.findViewById(R.id.shimmer_view_container);
         swipeRefreshLayout = view.findViewById(R.id.mSwipeRefreshLayout);
         articlesRecycle = view.findViewById(R.id.articlesRecycle);
         emptyView = view.findViewById(R.id.emptyView);
 
 
+        AdView mAdView = new AdView(getActivity());
+        mAdView.setAdSize(AdSize.BANNER);
+        mAdView.setAdUnitId(getString(R.string.admob_banner_id));
+
+        mAdView = (AdView) view.findViewById(R.id.adView);
+
+
+        AdRequest adRequest = new AdRequest.Builder().build();
 
         shimmer.startShimmer();
 
-        pDialog = new ProgressDialog(getActivity());
 
         getNews();
 
@@ -102,14 +106,40 @@ public class StateandNationalFragment extends Fragment {
         swipeRefreshLayout.setColorSchemeResources(R.color.green, R.color.red, R.color.blue);
 
 
+        mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+
+            }
+
+            @Override
+            public void onAdClosed() {
+
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+
+            }
+
+
+            @Override
+            public void onAdOpened() {
+                super.onAdOpened();
+            }
+        });
+
+
         return view;
 
 
     }
-
-
-
-
 
 
     private void getNews() {
@@ -123,7 +153,6 @@ public class StateandNationalFragment extends Fragment {
 
                 // Check if the Response is successful
                 if (response.isSuccessful()) {
-                    Log.d(TAG, "" + response.toString());
                     assert response.body() != null;
                     StateandNational fullListDetails = response.body();
 
@@ -178,8 +207,7 @@ public class StateandNationalFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<StateandNational> call, @NonNull Throwable t) {
-                pDialog.dismiss();
-                Log.d("ResponseF", "" + t);
+
             }
         });
 

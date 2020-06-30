@@ -3,17 +3,12 @@ package com.news.onlineprakasamapp.constants;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.widget.Toast;
 
 import androidx.core.app.ShareCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.news.onlineprakasamapp.BuildConfig;
-import com.news.onlineprakasamapp.receiver.NetworkStateChangeReceiver;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,7 +17,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.news.onlineprakasamapp.receiver.NetworkStateChangeReceiver.IS_NETWORK_AVAILABLE;
+
 
 
 /**
@@ -217,28 +212,4 @@ import static com.news.onlineprakasamapp.receiver.NetworkStateChangeReceiver.IS_
 
 
 
-
-
-
-    public static void internetCheck(Activity context){
-        IntentFilter intentFilter = new IntentFilter(NetworkStateChangeReceiver.NETWORK_AVAILABLE_ACTION);
-        LocalBroadcastManager.getInstance(context).registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                boolean isNetworkAvailable = intent.getBooleanExtra(IS_NETWORK_AVAILABLE, false);
-                String networkStatus = isNetworkAvailable ? "Available" : "Not Available";
-
-                if (networkStatus.equals("Not Available"))
-                {
-                    Toast.makeText(context, "No Internet Found", Toast.LENGTH_LONG).show();
-
-
-                }
-                else {
-                    Toast.makeText(context, " Internet Found", Toast.LENGTH_LONG).show();
-
-                }
-            }
-        }, intentFilter);
-    }
 }
