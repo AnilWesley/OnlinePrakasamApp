@@ -40,16 +40,7 @@
 
     <include layout="@layout/content_main" />
 
-    <!--<com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:adSize="BANNER"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/bottom_view"
-        app:adUnitId="@string/admob_banner_id"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
--->
+
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

@@ -41,7 +41,9 @@
 
 
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/menuItem"
+        android:checkableBehavior="single">
 
 
         <item

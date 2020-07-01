@@ -38,12 +38,9 @@ public class MainPrakasamPoliticsAdapter extends RecyclerView.Adapter<MainPrakas
     Context context;
 
 
-
-
     public MainPrakasamPoliticsAdapter(Context context1, List<PrakasamPolitics.ResponseBean> newsModalList1) {
         this.context = context1;
         this.newsModalList = newsModalList1;
-
 
 
     }
@@ -108,13 +105,7 @@ public class MainPrakasamPoliticsAdapter extends RecyclerView.Adapter<MainPrakas
                 });
 
 
-
-
-
-
     }
-
-
 
 
     @Override

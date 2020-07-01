@@ -15,7 +15,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.news.onlineprakasamapp.R;
 import com.news.onlineprakasamapp.activities.HomeActivity;
-import com.news.onlineprakasamapp.adapters.RecyclerViewAdapter;
+import com.news.onlineprakasamapp.adapters.LatestNewsAdapter;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,7 +101,7 @@ public class LatestNewsFragment extends Fragment {
             articlesRecycle.setLayoutManager(layoutManager);
 
             // Specify an adapter.
-            RecyclerViewAdapter adapter = new RecyclerViewAdapter(getActivity(), mRecyclerViewItems);
+            LatestNewsAdapter adapter = new LatestNewsAdapter(getActivity(), mRecyclerViewItems);
             articlesRecycle.setAdapter(adapter);
             swipeRefreshLayout.setRefreshing(false);
 

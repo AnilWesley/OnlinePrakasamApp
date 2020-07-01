@@ -5,16 +5,19 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -22,13 +25,13 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.news.onlineprakasamapp.R;
 import com.news.onlineprakasamapp.constants.ConstantValues;
 import com.news.onlineprakasamapp.constants.MyAppPrefsManager;
-import com.news.onlineprakasamapp.databinding.ActivitySingleNewsBinding;
 import com.news.onlineprakasamapp.modals.SingleNewsDetail;
 import com.news.onlineprakasamapp.retrofit.ApiInterface;
 import com.news.onlineprakasamapp.retrofit.RetrofitClientInstance;
@@ -36,35 +39,53 @@ import com.news.onlineprakasamapp.retrofit.RetrofitClientInstance;
 import java.util.List;
 import java.util.Objects;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SingleTopStoriesActivity extends AppCompatActivity {
 
     String TAG = "Articles";
+    @BindView(R.id.actionImage)
+    ImageView actionImage;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.appbar)
+    AppBarLayout appbar;
+    @BindView(R.id.textTitle1)
+    TextView textTitle1;
+    @BindView(R.id.textImage)
+    ImageView textImage;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+    @BindView(R.id.textDate)
+    TextView textDate;
+    @BindView(R.id.textDesc)
+    WebView textDesc;
 
     private List<SingleNewsDetail.ResponseBean> infoList;
 
-
-    ActivitySingleNewsBinding binding;
     private String news_id;
     private String imagePath = "http://apnewsnviews.com/onlineprakasam/storage/top_news_stories/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(SingleTopStoriesActivity.this, R.layout.activity_single_news);
+        setContentView(R.layout.activity_single_news);
+        ButterKnife.bind(this);
 
 
-        setSupportActionBar(binding.toolbar);
+        setSupportActionBar(toolbar);
 
-        binding.toolbar.inflateMenu(R.menu.share);
+        toolbar.inflateMenu(R.menu.share);
 
         Intent i = getIntent();
         news_id = i.getStringExtra("news_id");
 
 
-        binding.actionImage.setOnClickListener(new View.OnClickListener() {
+        actionImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -73,18 +94,6 @@ public class SingleTopStoriesActivity extends AppCompatActivity {
 
 
         getNews();
-        binding.mSwipeRefreshLayout.setOnRefreshListener(() -> {
-
-            binding.mSwipeRefreshLayout.post(() -> {
-                        //mSwipeLayout = true;
-
-                        binding.mSwipeRefreshLayout.setRefreshing(true);
-                        getNews();
-                    }
-            );
-
-        });
-        binding.mSwipeRefreshLayout.setColorSchemeResources(R.color.green, R.color.red, R.color.blue);
 
 
     }
@@ -99,7 +108,7 @@ public class SingleTopStoriesActivity extends AppCompatActivity {
         call.enqueue(new Callback<SingleNewsDetail>() {
             @SuppressLint("SetTextI18n")
             @Override
-            public void onResponse(@NonNull Call<SingleNewsDetail> call, @NonNull retrofit2.Response<SingleNewsDetail> response) {
+            public void onResponse(@NonNull Call<SingleNewsDetail> call, @NonNull Response<SingleNewsDetail> response) {
 
 
                 // Check if the Response is successful
@@ -115,15 +124,15 @@ public class SingleTopStoriesActivity extends AppCompatActivity {
                             for (int j = 0; j < infoList.size(); j++) {
 
 
-                                binding.textDate.setText("Published on : " + ConstantValues.getFormattedDate(MyAppPrefsManager.DD_MMM_YYYY_DATE_FORMAT, infoList.get(0).getCreated_on()));
-                                binding.textTitle1.setText(infoList.get(0).getTitle());
+                                textDate.setText("Published on : " + ConstantValues.getFormattedDate(MyAppPrefsManager.DD_MMM_YYYY_DATE_FORMAT, infoList.get(0).getCreated_on()));
+                                textTitle1.setText(infoList.get(0).getTitle());
 
 
                                 //Font must be placed in assets/fonts folder
                                 String text = "<html><style type='text/css'>@font-face { font-family: Mandali-Regular; src: url('fonts/Mandali-Regular.ttf'); } body p {font-family: Mandali-Regular;}</style>"
                                         + "<body >" + "<p align=\"justify\" style=\"font-size: 24px; font-family: Mandali-Regular;\">" + infoList.get(0).getDescription() + "</p> " + "</body></html>";
 
-                                binding.textDesc.loadDataWithBaseURL("file:///android_asset/", text, "text/html", "utf-8", null);
+                                textDesc.loadDataWithBaseURL("file:///android_asset/", text, "text/html", "utf-8", null);
 
 
                                 Glide.with(SingleTopStoriesActivity.this)
@@ -132,20 +141,17 @@ public class SingleTopStoriesActivity extends AppCompatActivity {
                                         .into(new CustomTarget<Drawable>() {
                                             @Override
                                             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                                                binding.textImage.setImageDrawable(resource);
-                                                binding.progressBar.setVisibility(View.GONE);
+                                                textImage.setImageDrawable(resource);
+                                                progressBar.setVisibility(View.GONE);
                                             }
 
                                             @Override
                                             public void onLoadCleared(@Nullable Drawable placeholder) {
 
-                                                binding.progressBar.setVisibility(View.GONE);
+                                                progressBar.setVisibility(View.GONE);
                                             }
 
                                         });
-
-
-                                binding.mSwipeRefreshLayout.setRefreshing(false);
 
 
                             }
@@ -203,8 +209,6 @@ public class SingleTopStoriesActivity extends AppCompatActivity {
                                 // Short link created
                                 Uri shortLink = Objects.requireNonNull(task.getResult()).getShortLink();
                                 Uri flowchartLink = task.getResult().getPreviewLink();
-
-
 
 
                                 Intent intent = new Intent();

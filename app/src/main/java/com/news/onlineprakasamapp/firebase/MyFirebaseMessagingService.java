@@ -42,9 +42,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.e(TAG, "From: " + message.getData());
         FirebaseMessaging.getInstance().setAutoInitEnabled(true);
 
-        Map<String,String> data=message.getData();
-        JSONObject dataObject=new JSONObject(data);
-        String notification_data=dataObject.optString("message");
+        Map<String, String> data = message.getData();
+        JSONObject dataObject = new JSONObject(data);
+        String notification_data = dataObject.optString("message");
         Log.e(TAG, "From: " + notification_data);
         handleDataMessage(dataObject);
 
@@ -64,13 +64,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     /**
      * Persist token to third-party servers.
-     *
+     * <p>
      * Modify this method to associate the user's FCM InstanceID token with any server-side account
      * maintained by your application.
      *
      * @param token The new token.
      */
-    private void sendRegistrationToServer( String token) {
+    private void sendRegistrationToServer(String token) {
         // TODO: Implement this method to send token to your app server.
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -113,14 +113,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }*/
 
 
-
-
     private void handleDataMessage(JSONObject json) {
         Log.e(TAG, "push json: " + json.toString());
 
-            // JSONObject data = json.getJSONObject("data");
+        // JSONObject data = json.getJSONObject("data");
 
-            //String title = data.getString("title");
+        //String title = data.getString("title");
         String message = null;
         String title = null;
         String category = null;
@@ -148,7 +146,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             if (category.equalsIgnoreCase("news")) {
 
                 Intent intent = new Intent(this, SingleNewsActivity.class);
-                intent.putExtra("news_id",id);
+                intent.putExtra("news_id", id);
 
 
                 RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.notification_layout);
@@ -205,7 +203,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             if (category.equalsIgnoreCase("article")) {
 
                 Intent intent = new Intent(this, SingleNewsActivity.class);
-                intent.putExtra("article_id",id);
+                intent.putExtra("article_id", id);
 
 
                 RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.notification_layout);
@@ -263,7 +261,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             if (category.equalsIgnoreCase("govt_schemes")) {
 
                 Intent intent = new Intent(this, SingleNewsActivity.class);
-                intent.putExtra("scheme_id",id);
+                intent.putExtra("scheme_id", id);
 
 
                 RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.notification_layout);
@@ -321,7 +319,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             if (category.equalsIgnoreCase("events")) {
 
                 Intent intent = new Intent(this, SingleNewsActivity.class);
-                intent.putExtra("event_id",id);
+                intent.putExtra("event_id", id);
 
 
                 RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.notification_layout);
@@ -375,11 +373,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 notificationManager.notify(0, notificationbuilder.build());
 
             }
-            } catch(Exception e){
-                e.printStackTrace();
-            }
-
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }

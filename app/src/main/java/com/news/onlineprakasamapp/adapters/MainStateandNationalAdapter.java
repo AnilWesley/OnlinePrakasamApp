@@ -43,7 +43,6 @@ public class MainStateandNationalAdapter extends RecyclerView.Adapter<MainStatea
         this.newsModalList = newsModalList1;
 
 
-
     }
 
     @Override
@@ -105,12 +104,7 @@ public class MainStateandNationalAdapter extends RecyclerView.Adapter<MainStatea
                 });
 
 
-
-
-
     }
-
-
 
 
     @Override

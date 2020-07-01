@@ -18,14 +18,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-
-
 /**
  * ConstantValues contains some constant variables, used all over the App.
  **/
 
 
- public  class ConstantValues {
+public class ConstantValues {
 
     public static boolean IS_USER_LOGGED_IN;
     public static final String TYPE_TEXT_PLAIN = "text/plain";
@@ -40,13 +38,11 @@ import java.util.regex.Pattern;
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
 
-
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         Matcher matcher = pattern.matcher(email1);
         return !matcher.matches();
 
     }
-
 
 
     public static void shareDeepLink(Activity activity, String str) {
@@ -67,14 +63,15 @@ import java.util.regex.Pattern;
             }
         }
     }
+
     // Validating pincode
-    public static  boolean isValidPincode(String pass1) {
+    public static boolean isValidPincode(String pass1) {
 
         return pass1 == null || pass1.length() != 6;
     }
 
     // Validating password
-    public static  boolean isValidPassword1(String pass1) {
+    public static boolean isValidPassword1(String pass1) {
 
         return pass1 == null || pass1.length() <= 5;
     }
@@ -96,26 +93,25 @@ import java.util.regex.Pattern;
     //Validating Address
     public static boolean validAddress(String pass1) {
 
-        String pat="^[a-zA-Z0-9]+([-/:\\s,][a-zA-Z0-9]+)*?$";
+        String pat = "^[a-zA-Z0-9]+([-/:\\s,][a-zA-Z0-9]+)*?$";
         return !pass1.matches(pat) || pass1.length() <= 2;
 
     }
-    public static  boolean validSchool(String pass1) {
+
+    public static boolean validSchool(String pass1) {
 
         return !pass1.matches("^[a-zA-Z0-9]+(\\s[a-zA-Z0-9]+)*?$") || pass1.length() <= 2;
 
     }
 
     //Validtaing Names
-    public static boolean validateFirstName( String firstName )
-    {
-        return !firstName.matches( "^[a-zA-Z]+(\\s[a-zA-Z]+)*?$" );
+    public static boolean validateFirstName(String firstName) {
+        return !firstName.matches("^[a-zA-Z]+(\\s[a-zA-Z]+)*?$");
 
     }
 
     //Validtaing Names
-    public static boolean validateFirstName1( String firstName )
-    {
+    public static boolean validateFirstName1(String firstName) {
         String PASSWORD_PATTERN =
                 "((?=.*[@#$%!?^*+_\\d]).{1,25})";
 
@@ -127,12 +123,13 @@ import java.util.regex.Pattern;
 
 
     //Validating Mobile
-      public  static boolean isValidMoblie(String pass1) {
+    public static boolean isValidMoblie(String pass1) {
 
         return pass1 == null || pass1.length() != 10;
 
     }
-    public  static boolean isValidOTP(String pass1) {
+
+    public static boolean isValidOTP(String pass1) {
 
         return pass1 == null || pass1.length() != 6;
 
@@ -144,9 +141,9 @@ import java.util.regex.Pattern;
 
     public static String getFormattedDate(String str, String j) {
         @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat spf=new SimpleDateFormat("yyyy-MM-dd hh:mm:sss");
+        SimpleDateFormat spf = new SimpleDateFormat("yyyy-MM-dd hh:mm:sss");
 
-        Date newDate= null;
+        Date newDate = null;
         try {
             newDate = spf.parse(j);
         } catch (ParseException e) {
@@ -164,9 +161,9 @@ import java.util.regex.Pattern;
 
     public static String getFormattedDate1(String str, String j) {
         @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat spf=new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat spf = new SimpleDateFormat("yyyy-MM-dd");
 
-        Date newDate= null;
+        Date newDate = null;
         try {
             newDate = spf.parse(j);
         } catch (ParseException e) {
@@ -196,20 +193,19 @@ import java.util.regex.Pattern;
     public static void shareMyApp(Context context) {
 
         try {
-            String shareMessage= "\nLet me recommend you this application\n\n";
-            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
+            String shareMessage = "\nLet me recommend you this application\n\n";
+            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My App");
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
             context.startActivity(Intent.createChooser(shareIntent, "choose one"));
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
 
         }
 
     }
-
 
 
 }

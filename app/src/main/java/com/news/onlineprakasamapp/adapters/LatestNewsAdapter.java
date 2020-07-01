@@ -54,10 +54,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * The {@link RecyclerViewAdapter} class.
+ * The {@link LatestNewsAdapter} class.
  * <p>The adapter provides access to the items in the {@link MenuItemViewHolder}
  */
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class LatestNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     // A menu item view type.
     private static final int MENU_ITEM_VIEW_TYPE = 0;
 
@@ -73,7 +73,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      * For this example app, the recyclerViewItems list contains only
      * {@link MenuItem} and {@link UnifiedNativeAd} types.
      */
-    public RecyclerViewAdapter(Context context, List<Object> recyclerViewItems) {
+    public LatestNewsAdapter(Context context, List<Object> recyclerViewItems) {
         this.mContext = context;
         this.mRecyclerViewItems = recyclerViewItems;
     }

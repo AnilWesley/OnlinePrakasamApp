@@ -38,8 +38,6 @@ public class MainEditorialAdapter extends RecyclerView.Adapter<MainEditorialAdap
     private Context context;
 
 
-
-
     public MainEditorialAdapter(Context context, List<FullListDetails.ResponseBean> newsModalList1) {
         this.context = context;
         this.newsModalList = newsModalList1;
@@ -87,10 +85,10 @@ public class MainEditorialAdapter extends RecyclerView.Adapter<MainEditorialAdap
 
         ((MyViewHolder) holder).tvDate.setText(niceDateStr);
 
-        String imagePath="http://apnewsnviews.com/onlineprakasam/storage/editorial/";
+        String imagePath = "http://apnewsnviews.com/onlineprakasam/storage/editorial/";
 
         Glide.with(context)
-                .load(imagePath+newsModal.getImage_path())
+                .load(imagePath + newsModal.getImage_path())
                 .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
                 .into(new CustomTarget<Drawable>() {
                     @Override
@@ -109,8 +107,6 @@ public class MainEditorialAdapter extends RecyclerView.Adapter<MainEditorialAdap
 
 
     }
-
-
 
 
     @Override

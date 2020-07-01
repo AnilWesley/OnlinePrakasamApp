@@ -5,5 +5,5 @@
     <item android:title="@string/share"
         android:id="@+id/share"
         app:showAsAction="always"
-        android:icon="@drawable/ic_share_black_24dp"/>
+        android:icon="@drawable/ic_baseline_share_24"/>
 </menu>
