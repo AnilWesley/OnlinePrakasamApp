@@ -214,7 +214,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
 
         int offset = (mRecyclerViewItems.size() / mNativeAds.size()) + 1;
-        int index = 4;
+        int index = 2;
         for (UnifiedNativeAd ad : mNativeAds) {
             mRecyclerViewItems.add(index, ad);
             index = index + offset;
