@@ -17,7 +17,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -25,7 +24,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
@@ -48,12 +46,6 @@ import retrofit2.Response;
 public class SingleTopStoriesActivity extends AppCompatActivity {
 
     String TAG = "Articles";
-    @BindView(R.id.actionImage)
-    ImageView actionImage;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.appbar)
-    AppBarLayout appbar;
     @BindView(R.id.textTitle1)
     TextView textTitle1;
     @BindView(R.id.textImage)
@@ -65,6 +57,7 @@ public class SingleTopStoriesActivity extends AppCompatActivity {
     @BindView(R.id.textDesc)
     WebView textDesc;
 
+
     private List<SingleNewsDetail.ResponseBean> infoList;
 
     private String news_id;
@@ -75,22 +68,10 @@ public class SingleTopStoriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_news);
         ButterKnife.bind(this);
-
-
-        setSupportActionBar(toolbar);
-
-        toolbar.inflateMenu(R.menu.share);
-
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(getResources().getString(R.string.topStories));
         Intent i = getIntent();
         news_id = i.getStringExtra("news_id");
-
-
-        actionImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
 
 
         getNews();
@@ -181,7 +162,8 @@ public class SingleTopStoriesActivity extends AppCompatActivity {
 
 
         // return true so that the menu pop up is opened
-        return true;
+        return super.onCreateOptionsMenu(menu);
+
     }
 
     @Override
@@ -231,6 +213,9 @@ public class SingleTopStoriesActivity extends AppCompatActivity {
             }
             return true;
 
+        } else if (item.getItemId() == android.R.id.home) {
+
+            onBackPressed();
         }
         return super.onOptionsItemSelected(item);
     }

@@ -33,12 +33,14 @@
 
         <activity
             android:name=".activities.SingleNewsActivity"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
 
         </activity>
 
         <activity
             android:name=".activities.SingleTopStoriesActivity"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
 
         </activity>
@@ -46,12 +48,14 @@
 
         <activity
             android:name=".activities.SingleStateandNationalActivity"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
 
         </activity>
 
         <activity
             android:name=".activities.SinglePoliticsActivity"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
 
         </activity>
@@ -59,11 +63,13 @@
 
         <activity
             android:name=".activities.SingleEditorialActivity"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
 
         </activity>
         <activity
             android:name=".activities.SingleInvestigationActivity"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
 
         </activity>
