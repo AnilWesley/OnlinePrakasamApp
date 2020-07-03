@@ -109,6 +109,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             // Commit the transaction.
             transaction.commit();
 
+
             // Update the RecyclerView item's list with menu items.
             getNews();
             // Update the RecyclerView item's list with native ads.
@@ -243,8 +244,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     public void onAdFailedToLoad(int errorCode) {
                         // A native ad failed to load, check if the ad loader has finished loading
                         // and if so, insert the ads into the list.
+                        loadMenu();
                         if (!adLoader.isLoading()) {
                             insertAdsInMenuItems();
+
                         }
                     }
                 }).build();

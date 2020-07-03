@@ -73,7 +73,9 @@ public class SingleNewsActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
         getSupportActionBar().setTitle(getResources().getString(R.string.latest_news));
+       // getSupportActionBar().setTitle(Html.fromHtml("<font color='#ff0000'>"+getResources().getString(R.string.latest_news)+"</font>"));
         Intent i = getIntent();
         news_id = i.getStringExtra("news_id");
 

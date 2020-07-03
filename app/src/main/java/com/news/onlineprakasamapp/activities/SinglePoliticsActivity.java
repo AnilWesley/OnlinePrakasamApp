@@ -70,6 +70,7 @@ public class SinglePoliticsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
         getSupportActionBar().setTitle(getResources().getString(R.string.politics));
         Intent i = getIntent();
         news_id = i.getStringExtra("news_id");

@@ -71,6 +71,7 @@ public class SingleInvestigationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_single_news);
         ButterKnife.bind(this);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
         getSupportActionBar().setTitle(getResources().getString(R.string.investigation));
 
         Intent i = getIntent();
