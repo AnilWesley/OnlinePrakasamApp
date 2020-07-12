@@ -4,6 +4,7 @@
     package="com.news.onlineprakasamapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".app.AppController"
         android:allowBackup="true"
@@ -15,6 +16,9 @@
         android:theme="@style/AppThemeNav"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity android:name=".activities.AboutUsActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.SplashScreenActivity"
             android:screenOrientation="portrait">
@@ -24,57 +28,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.HomeActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
-
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.SingleNewsActivity"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait">
-
-        </activity>
-
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".activities.SingleTopStoriesActivity"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".activities.SingleStateandNationalActivity"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait">
-
-        </activity>
-
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".activities.SinglePoliticsActivity"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".activities.SingleEditorialActivity"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".activities.SingleInvestigationActivity"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".activities.SplashScreenActivity1"
             android:label="@string/app_name"
@@ -114,10 +94,9 @@
             </intent-filter>
         </service>
 
-
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/admob_app_id"/>
+            android:value="@string/admob_app_id" />
     </application>
 
 </manifest>

@@ -25,17 +25,19 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.news.onlineprakasamapp.R;
+import com.news.onlineprakasamapp.activities.HomeActivity;
 import com.news.onlineprakasamapp.activities.SingleNewsActivity;
+import com.news.onlineprakasamapp.activities.SingleStateandNationalActivity;
 
 import org.json.JSONObject;
 
 import java.util.Map;
 import java.util.Objects;
 
-import static com.google.firebase.remoteconfig.FirebaseRemoteConfig.TAG;
-
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
+
+    private String TAG = "RESPONSE_DATA";
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage message) {
@@ -90,7 +92,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     }
                 });
     }
-   /* private void sendNotification(String notification_data) {
+
+    private void sendNotification(String notification_data) {
         Intent intent = new Intent(this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
@@ -102,15 +105,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setStyle(new NotificationCompat.BigTextStyle())
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.icon1)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
+        assert notificationManager != null;
         notificationManager.notify(0, notificationBuilder.build());
-    }*/
+    }
 
 
     private void handleDataMessage(JSONObject json) {
@@ -143,9 +147,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.e(TAG, "payload: " + payload.toString());
             Log.e(TAG, "imageUrl: " + imageUrl);
             Log.e(TAG, "timestamp: " + timestamp);*/
-            if (category.equalsIgnoreCase("news")) {
+            if (category.equalsIgnoreCase("StateandNational")) {
 
-                Intent intent = new Intent(this, SingleNewsActivity.class);
+                Intent intent = new Intent(this, SingleStateandNationalActivity.class);
                 intent.putExtra("news_id", id);
 
 
@@ -200,10 +204,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 notificationManager.notify(0, notificationbuilder.build());
 
             }
-            if (category.equalsIgnoreCase("article")) {
+            if (category.equalsIgnoreCase("LatestNews")) {
 
                 Intent intent = new Intent(this, SingleNewsActivity.class);
-                intent.putExtra("article_id", id);
+                intent.putExtra("news_id", id);
 
 
                 RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.notification_layout);

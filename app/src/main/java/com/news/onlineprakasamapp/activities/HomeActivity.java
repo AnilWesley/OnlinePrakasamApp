@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -28,9 +30,12 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.gson.JsonObject;
 import com.news.onlineprakasamapp.BuildConfig;
 import com.news.onlineprakasamapp.R;
 import com.news.onlineprakasamapp.constants.ConstantValues;
+import com.news.onlineprakasamapp.constants.MyAppPrefsManager;
 import com.news.onlineprakasamapp.firebase.ForceUpdateChecker;
 import com.news.onlineprakasamapp.fragments.EditorialFragment;
 import com.news.onlineprakasamapp.fragments.InvestigationandCrimeFragment;
@@ -41,16 +46,19 @@ import com.news.onlineprakasamapp.fragments.StateandNationalFragment;
 import com.news.onlineprakasamapp.fragments.TopStoriesFragment;
 import com.news.onlineprakasamapp.modals.FullListDetails;
 import com.news.onlineprakasamapp.modals.MenuItem1;
+import com.news.onlineprakasamapp.modals.UpdateToken;
 import com.news.onlineprakasamapp.retrofit.ApiInterface;
 import com.news.onlineprakasamapp.retrofit.RetrofitClientInstance;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ForceUpdateChecker.OnUpdateNeededListener {
 
@@ -90,7 +98,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private List<FullListDetails.ResponseBean> infoNews;
 
-    @SuppressLint("SetTextI18n")
+    String token;
+    String msg;
+
+    private String device_id;
+
+    MyAppPrefsManager myAppPrefsManager;
+
+    @SuppressLint({"SetTextI18n", "HardwareIds"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +113,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         ButterKnife.bind(this);
         MobileAds.initialize(this, getString(R.string.admob_app_id));
 
+        myAppPrefsManager=new MyAppPrefsManager(HomeActivity.this);
 
         if (savedInstanceState == null) {
             // Create new fragment to display a progress spinner while the data set for the
@@ -118,6 +134,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        device_id = Settings.Secure.getString(HomeActivity.this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
 
         bottomView.setItemIconTintList(null);
 
@@ -147,9 +166,78 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         ForceUpdateChecker.with(this).onUpdateNeeded(this).check();
 
+        updateToken();
+
 
     }
 
+
+    private void updateToken() {
+
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        //To do//
+                        msg = getString(R.string.fcm_token, "");
+                        Log.d(TAG, "Messasge" + msg);
+                        return;
+                    }
+
+                    // Get the Instance ID token//
+                    token = Objects.requireNonNull(task.getResult()).getToken();
+                    msg = getString(R.string.fcm_token, token);
+                    Log.d(TAG, "Message" + msg);
+
+                });
+
+        token = FirebaseInstanceId.getInstance().getToken();
+        assert token != null;
+        Log.d(TAG, "" + token);
+        // prepare call in Retrofit 2.0
+        JsonObject jsonObject = new JsonObject();
+
+        jsonObject.addProperty("device_id", device_id);
+        jsonObject.addProperty("token", token);
+
+        Log.d(TAG, "" + jsonObject);
+        ApiInterface service = RetrofitClientInstance.getRetrofitInstance().create(ApiInterface.class);
+        Call<UpdateToken> call = service.processToken(jsonObject);
+        call.enqueue(new Callback<UpdateToken>() {
+            @Override
+            public void onResponse(@NonNull Call<UpdateToken> call, @NonNull Response<UpdateToken> response) {
+
+                // Check if the Response is successful
+                if (response.isSuccessful()) {
+                    if (response.code() == 200) {
+                        assert response.body() != null;
+                        UpdateToken articlesData1 = response.body();
+
+
+                        if (articlesData1.isStatus()) {
+                            String user_id = articlesData1.getResponse().getUser_id();
+
+                            Log.d(TAG, "" + articlesData1.getMessage());
+                            Log.d(TAG, "" + user_id);
+                            myAppPrefsManager.setUserId(user_id);
+
+                        }
+
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UpdateToken> call, @NonNull Throwable t) {
+
+                Log.d("ResponseF", "" + t);
+            }
+        });
+
+
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,10 +28,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
+import com.google.gson.JsonObject;
 import com.news.onlineprakasamapp.R;
 import com.news.onlineprakasamapp.constants.ConstantValues;
 import com.news.onlineprakasamapp.constants.MyAppPrefsManager;
 import com.news.onlineprakasamapp.modals.SingleNewsDetail;
+import com.news.onlineprakasamapp.modals.ViewsCount;
 import com.news.onlineprakasamapp.retrofit.ApiInterface;
 import com.news.onlineprakasamapp.retrofit.RetrofitClientInstance;
 
@@ -65,6 +68,8 @@ public class SingleNewsActivity extends AppCompatActivity {
 
     private String imagePath = "http://apnewsnviews.com/onlineprakasam/storage/articles/";
 
+    MyAppPrefsManager myAppPrefsManager;
+    String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,16 +80,60 @@ public class SingleNewsActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
         getSupportActionBar().setTitle(getResources().getString(R.string.latest_news));
-       // getSupportActionBar().setTitle(Html.fromHtml("<font color='#ff0000'>"+getResources().getString(R.string.latest_news)+"</font>"));
+        // getSupportActionBar().setTitle(Html.fromHtml("<font color='#ff0000'>"+getResources().getString(R.string.latest_news)+"</font>"));
         Intent i = getIntent();
         news_id = i.getStringExtra("news_id");
-
-
+        myAppPrefsManager = new MyAppPrefsManager(SingleNewsActivity.this);
+        user_id = myAppPrefsManager.getUserId();
         getNews();
+        getNewsCount();
 
 
     }
 
+
+    public void getNewsCount() {
+
+        JsonObject jsonObject = new JsonObject();
+
+        jsonObject.addProperty("user_id", user_id);
+        jsonObject.addProperty("latestnews_id", news_id);
+
+        Log.d(TAG, "" + jsonObject);
+        ApiInterface service = RetrofitClientInstance.getRetrofitInstance().create(ApiInterface.class);
+        Call<ViewsCount> call = service.processLatestNewsViews(jsonObject);
+        call.enqueue(new Callback<ViewsCount>() {
+            @Override
+            public void onResponse(@NonNull Call<ViewsCount> call, @NonNull Response<ViewsCount> response) {
+
+                // Check if the Response is successful
+                if (response.isSuccessful()) {
+                    if (response.code() == 200) {
+                        assert response.body() != null;
+                        ViewsCount articlesData1 = response.body();
+
+
+                        if (articlesData1.isStatus()) {
+                            int count = articlesData1.getResponse();
+                            Log.d(TAG, "onResponse: " + count);
+
+                        }else {
+                            Log.d(TAG, "onResponse: " + articlesData1.getMessage());
+                        }
+
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ViewsCount> call, @NonNull Throwable t) {
+
+                Log.d("ResponseF", "" + t);
+            }
+        });
+    }
 
     public void getNews() {
 

@@ -11,12 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.news.onlineprakasamapp.R;
 import com.news.onlineprakasamapp.activities.HomeActivity;
 import com.news.onlineprakasamapp.adapters.LatestNewsAdapter;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +30,6 @@ public class LatestNewsFragment extends Fragment {
     // List of MenuItems and native ads that populate the RecyclerView.
     private List<Object> mRecyclerViewItems = new ArrayList<>();
 
-
-    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView articlesRecycle;
     private TextView emptyView;
 
@@ -58,30 +54,11 @@ public class LatestNewsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_latest, container, false);
 
-        swipeRefreshLayout = view.findViewById(R.id.mSwipeRefreshLayout);
         articlesRecycle = view.findViewById(R.id.articlesRecycle);
         emptyView = view.findViewById(R.id.emptyView);
 
         getNews();
 
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-
-
-            swipeRefreshLayout.post(() -> {
-                        //mSwipeLayout = true;
-
-                        swipeRefreshLayout.setRefreshing(true);
-
-
-                        getNews();
-
-
-                    }
-            );
-
-        });
-
-        swipeRefreshLayout.setColorSchemeResources(R.color.green, R.color.red, R.color.blue);
 
 
         return view;
@@ -103,7 +80,7 @@ public class LatestNewsFragment extends Fragment {
             // Specify an adapter.
             LatestNewsAdapter adapter = new LatestNewsAdapter(getActivity(), mRecyclerViewItems);
             articlesRecycle.setAdapter(adapter);
-            swipeRefreshLayout.setRefreshing(false);
+            adapter.notifyDataSetChanged();
 
         } else {
             articlesRecycle.setVisibility(View.GONE);

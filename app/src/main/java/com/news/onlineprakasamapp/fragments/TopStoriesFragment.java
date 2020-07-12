@@ -46,7 +46,6 @@ public class TopStoriesFragment extends Fragment {
 
 
     private ShimmerFrameLayout shimmer;
-    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView articlesRecycle;
     private TextView emptyView;
 
@@ -64,7 +63,6 @@ public class TopStoriesFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         shimmer = view.findViewById(R.id.shimmer_view_container);
-        swipeRefreshLayout = view.findViewById(R.id.mSwipeRefreshLayout);
         articlesRecycle = view.findViewById(R.id.articlesRecycle);
         emptyView = view.findViewById(R.id.emptyView);
 
@@ -76,24 +74,6 @@ public class TopStoriesFragment extends Fragment {
 
 
         getNews();
-
-
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-
-            swipeRefreshLayout.post(() -> {
-                        //mSwipeLayout = true;
-
-                        swipeRefreshLayout.setRefreshing(true);
-                        shimmer.startShimmer();
-
-                        getNews();
-
-
-                    }
-            );
-
-        });
-        swipeRefreshLayout.setColorSchemeResources(R.color.green, R.color.red, R.color.blue);
 
 
         return view;
@@ -136,7 +116,6 @@ public class TopStoriesFragment extends Fragment {
 
                         // set the adapter object to the Recyclerview
                         articlesRecycle.setAdapter(mAdapter);
-                        swipeRefreshLayout.setRefreshing(false);
 
                         //set click event
                         articlesRecycle.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), articlesRecycle, new RecyclerItemClickListener.OnItemClickListener() {

@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.ads.AdListener;
@@ -49,7 +48,6 @@ public class StateandNationalFragment extends Fragment {
 
 
     private ShimmerFrameLayout shimmer;
-    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView articlesRecycle;
     private TextView emptyView;
 
@@ -68,7 +66,6 @@ public class StateandNationalFragment extends Fragment {
         MobileAds.initialize(getActivity(), getString(R.string.admob_app_id));
 
         shimmer = view.findViewById(R.id.shimmer_view_container);
-        swipeRefreshLayout = view.findViewById(R.id.mSwipeRefreshLayout);
         articlesRecycle = view.findViewById(R.id.articlesRecycle);
         emptyView = view.findViewById(R.id.emptyView);
 
@@ -86,24 +83,6 @@ public class StateandNationalFragment extends Fragment {
 
 
         getNews();
-
-
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-
-            swipeRefreshLayout.post(() -> {
-                        //mSwipeLayout = true;
-
-                        swipeRefreshLayout.setRefreshing(true);
-                        shimmer.startShimmer();
-
-                        getNews();
-
-
-                    }
-            );
-
-        });
-        swipeRefreshLayout.setColorSchemeResources(R.color.green, R.color.red, R.color.blue);
 
 
         mAdView.loadAd(adRequest);
@@ -172,7 +151,7 @@ public class StateandNationalFragment extends Fragment {
 
                         // set the adapter object to the Recyclerview
                         articlesRecycle.setAdapter(mAdapter);
-                        swipeRefreshLayout.setRefreshing(false);
+
 
                         //set click event
                         articlesRecycle.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), articlesRecycle, new RecyclerItemClickListener.OnItemClickListener() {
